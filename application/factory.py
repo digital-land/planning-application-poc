@@ -28,6 +28,10 @@ def register_blueprints(app):
 
     app.register_blueprint(base)
 
+    from application.blueprints.planning_applications.views import planning_app
+
+    app.register_blueprint(planning_app)
+
 
 def register_context_processors(app):
     """
