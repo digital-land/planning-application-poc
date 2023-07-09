@@ -1,0 +1,83 @@
+{%- from "govuk_frontend_jinja/components/button/macro.html" import govukButton %}
+{% from 'components/filter-checkboxes/macro.jinja' import dlFilterCheckboxes %}
+{%- from "components/filter-group/macro.jinja" import dlFilterGroup %}
+
+<form action="/planning-application" class="govuk-form" method="GET">
+  <h3 class="govuk-heading-m">Filters</h3>
+
+  <!-- filter by decision made or not -->
+  <div class="govuk-form-group">
+    {% call dlFilterGroup({
+      "title": "Live/Decision",
+      "is_open": True,
+      "selected": 1
+    }) %}
+    <fieldset class="govuk-fieldset">
+      <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+        <h1 class="govuk-fieldset__heading govuk-visually-hidden">
+          Do you want to see live applications, applications with a decision or both?
+        </h1>
+      </legend>
+      <div class="govuk-radios">
+        <div class="govuk-radios__item">
+          <input class="govuk-radios__input" id="decision" name="decision" type="radio" value="all" checked=checked>
+          <label class="govuk-label govuk-radios__label" for="decision">
+            All
+          </label>
+        </div>
+        <div class="govuk-radios__item">
+          <input class="govuk-radios__input" id="decision-2" name="decision" type="radio" value="live">
+          <label class="govuk-label govuk-radios__label" for="decision-2">
+            Live
+          </label>
+        </div>
+        <div class="govuk-radios__item">
+          <input class="govuk-radios__input" id="decision-3" name="decision" type="radio" value="decision-made">
+          <label class="govuk-label govuk-radios__label" for="decision-3">
+            Decision made
+          </label>
+        </div>
+      </div>
+
+    </fieldset>
+    {% endcall %}
+  </div>
+
+  <!-- planning authority facet -->
+  <div class="govuk-form-group">
+    {% call dlFilterGroup({
+      "title": "Planning authority",
+      "is_open": True,
+      "selected": 0
+    }) %}
+    <div class="govuk-checkboxes">
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="planning_authority-camden" name="planning_authority" type="checkbox" value="local-authority:cmd">
+        <label class="govuk-label govuk-checkboxes__label" for="planning_authority-camden">
+          Adur and Worthing
+        </label>
+      </div>
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="planning_authority-camden" name="planning_authority" type="checkbox" value="local-authority:cmd">
+        <label class="govuk-label govuk-checkboxes__label" for="planning_authority-camden">
+          Camden
+        </label>
+      </div>
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="planning_authority-camden" name="planning_authority" type="checkbox" value="local-authority:cmd">
+        <label class="govuk-label govuk-checkboxes__label" for="planning_authority-camden">
+          Nottingham
+        </label>
+      </div>
+    </div>
+    {% endcall %}
+  </div>
+
+  <div class="govuk-button-group">
+    {{ govukButton({
+      "text": "Search"
+    }) }}
+    <a href="{{ search_form_url }}" class="govuk-link">Clear</a>
+  </div>
+
+</form>
