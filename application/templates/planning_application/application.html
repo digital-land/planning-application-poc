@@ -1,5 +1,10 @@
 {% extends 'layouts/base.html' %}
 
+{% block beforeContent %}
+{{ super() }}
+<a href="/planning-application" class="govuk-back-link">Back to planning application register</a>
+{% endblock beforeContent %}
+
 {% block content %}
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-three-quarters">
