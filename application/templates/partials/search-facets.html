@@ -73,6 +73,54 @@
     {% endcall %}
   </div>
 
+  <!-- filter by entry date -->
+  <div class="govuk-form-group">
+    {% call dlFilterGroup({
+      "title": "Applications since",
+      "is_open": True,
+      "selected": 0
+    }) %}
+    <div class="govuk-form-group">
+      <fieldset class="govuk-fieldset" role="group" aria-describedby="entry-date-hint">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+          <h1 class="govuk-fieldset__heading govuk-visually-hidden">
+            Enter date to search for applications since
+          </h1>
+        </legend>
+        <div id="entry-date-hint" class="govuk-hint">
+          For example, 27 3 2021
+        </div>
+        <div class="govuk-date-input" id="entry-date">
+          <div class="govuk-date-input__item">
+            <div class="govuk-form-group">
+              <label class="govuk-label govuk-date-input__label" for="entry_date_day">
+                Day
+              </label>
+              <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="entry_date_day" name="entry_date_day" type="text" pattern="[0-9]*" inputmode="numeric">
+            </div>
+          </div>
+          <div class="govuk-date-input__item">
+            <div class="govuk-form-group">
+              <label class="govuk-label govuk-date-input__label" for="entry_date_month">
+                Month
+              </label>
+              <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="entry_date_month" name="entry_date_month" type="text" pattern="[0-9]*" inputmode="numeric">
+            </div>
+          </div>
+          <div class="govuk-date-input__item">
+            <div class="govuk-form-group">
+              <label class="govuk-label govuk-date-input__label" for="entry_date_year">
+                Year
+              </label>
+              <input class="govuk-input govuk-date-input__input govuk-input--width-4" id="entry_date_year" name="entry_date_year" type="text" pattern="[0-9]*" inputmode="numeric">
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+    {% endcall %}
+  </div>
+
   <div class="govuk-button-group">
     {{ govukButton({
       "text": "Search"
