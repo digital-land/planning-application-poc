@@ -24,7 +24,7 @@
         <dl class="govuk-summary-list govuk-!-margin-bottom-0">
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">Reference</dt>
-            <dd class="govuk-summary-list__value"></dd>
+            <dd class="govuk-summary-list__value">{{planning_application.reference}}</dd>
           </div>
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">Name</dt>
@@ -32,15 +32,15 @@
           </div>
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">Organisation</dt>
-            <dd class="govuk-summary-list__value"></dd>
+            <dd class="govuk-summary-list__value">{{planning_application.organisation_entity}}</dd>
           </div>
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">Description</dt>
-            <dd class="govuk-summary-list__value"></dd>
+            <dd class="govuk-summary-list__value">{{properties.description}}</dd>
           </div>
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">Address text</dt>
-            <dd class="govuk-summary-list__value"></dd>
+            <dd class="govuk-summary-list__value">{{properties["address-text"]}}</dd>
           </div>
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">UPRN</dt>
@@ -48,15 +48,15 @@
           </div>
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">Geometry</dt>
-            <dd class="govuk-summary-list__value"></dd>
+            <dd class="govuk-summary-list__value">{{planning_application.geometry}}</dd>
           </div>
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">Point</dt>
-            <dd class="govuk-summary-list__value"></dd>
+            <dd class="govuk-summary-list__value">{{planning_application.point}}</dd>
           </div>
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">Documentation URL</dt>
-            <dd class="govuk-summary-list__value"></dd>
+            <dd class="govuk-summary-list__value"><a href="{{properties['documentation-url']}}">{{properties["documentation-url"]}}</a></dd>
           </div>
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">Planning application type</dt>
@@ -68,7 +68,7 @@
           </div>
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">Planning decision type</dt>
-            <dd class="govuk-summary-list__value"></dd>
+            <dd class="govuk-summary-list__value">{{properties["planning-decision-type"]}}</dd>
           </div>
           <div class="govuk-summary-list__row">
             <dt class="govuk-summary-list__key">Decision date</dt>
@@ -147,6 +147,15 @@
     </tr>
   </thead>
   <tbody class="govuk-table__body">
+    {% for log in logs %}
+    <tr>
+      <td>{{log.name}}</td>
+      <td>{{log.event_date}}</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    {% endfor %}
   </tbody>
 </table>
 <p class="govuk-body dl-secondary-text">No status or events logged. This is a prototype built with limited source data so expect there to be a few gaps.</p>

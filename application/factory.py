@@ -49,10 +49,9 @@ def register_filters(app):
 
 
 def register_extensions(app):
-    # from application.extensions import db, migrate
+    from application.extensions import toolbar
 
-    # db.init_app(app)
-    # migrate.init_app(app)
+    toolbar.init_app(app)
 
     from flask_sslify import SSLify
 

@@ -3,3 +3,8 @@
 
 # db = SQLAlchemy()
 # migrate = Migrate(db=db)
+
+
+from flask_debugtoolbar import DebugToolbarExtension
+
+toolbar = DebugToolbarExtension()

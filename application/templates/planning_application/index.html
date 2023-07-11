@@ -13,7 +13,7 @@
   </div>
   <div class="govuk-grid-column-two-thirds">
     <div class="app-results-summary">
-      {% set count = 0 %}
+      {% set count = planning_applications|count %}
       <h2 class="app-results-summary__title">Showing {{ count }} planning application{{ "" if count == 1 else "s" }}</h2>
       {% if count == 0 %}
         <p class="govuk-body dl-secondary-text">No planning applications found for this search. This is a proof of concept and only has a limited set of data.</p>
