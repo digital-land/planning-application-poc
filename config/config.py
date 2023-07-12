@@ -14,6 +14,7 @@ class Config:
     SQLALCHEMY_DATABASE_URI = DATABASE_URL
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_RECORD_QUERIES = False
+    PAGE_SIZE = os.getenv("PAGE_SIZE", 50)
 
 
 class DevelopmentConfig(Config):

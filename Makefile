@@ -59,3 +59,6 @@ make load:
 
 make drop:
 	flask data drop
+
+upgrade:
+	flask db upgrade
