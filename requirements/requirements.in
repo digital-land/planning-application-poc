@@ -8,4 +8,3 @@ Flask-Migrate
 psycopg2-binary
 flask-sslify
 requests
-flask-debugtoolbar

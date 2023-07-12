@@ -49,9 +49,14 @@ def register_filters(app):
 
 
 def register_extensions(app):
-    from application.extensions import db, migrate, toolbar
+    from application.extensions import db, migrate
 
-    toolbar.init_app(app)
+    if app.config.get("DEBUG"):
+        from flask_debugtoolbar import DebugToolbarExtension
+
+        toolbar = DebugToolbarExtension()
+        toolbar.init_app(app)
+
     db.init_app(app)
     migrate.init_app(app, db)
 

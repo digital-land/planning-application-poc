@@ -15,6 +15,7 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_RECORD_QUERIES = False
     PAGE_SIZE = os.getenv("PAGE_SIZE", 50)
+    DEBUG = False
 
 
 class DevelopmentConfig(Config):
