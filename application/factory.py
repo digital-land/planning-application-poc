@@ -3,7 +3,7 @@
 from flask import Flask
 from flask.cli import load_dotenv
 
-# from application.models import *  # noqa
+from application.models import *  # noqa
 
 load_dotenv()
 
@@ -49,9 +49,11 @@ def register_filters(app):
 
 
 def register_extensions(app):
-    from application.extensions import toolbar
+    from application.extensions import db, migrate, toolbar
 
     toolbar.init_app(app)
+    db.init_app(app)
+    migrate.init_app(app, db)
 
     from flask_sslify import SSLify
 
@@ -79,4 +81,6 @@ def register_templates(app):
 
 
 def register_commands(app):
-    pass
+    from application.commands import data_cli
+
+    app.cli.add_command(data_cli)

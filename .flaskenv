@@ -2,4 +2,4 @@ FLASK_DEBUG=True
 FLASK_CONFIG=config.DevelopmentConfig
 FLASK_APP=application.wsgi:app
 SECRET_KEY=replaceinprod
-DATABASE_URL=<path-to-db>
+DATABASE_URL=postgresql://localhost/planning_application_poc

@@ -13,12 +13,14 @@ class Config:
         DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://")
     SQLALCHEMY_DATABASE_URI = DATABASE_URL
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_RECORD_QUERIES = False
 
 
 class DevelopmentConfig(Config):
     DEBUG = True
     ENV = "development"
-    WTF_CSRF_ENABLED = True
+    WTF_CSRF_ENABLED = False
+    SQLALCHEMY_RECORD_QUERIES = True
 
 
 class TestConfig(Config):
