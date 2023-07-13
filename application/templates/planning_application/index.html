@@ -14,7 +14,7 @@
   <div class="govuk-grid-column-two-thirds">
     <div class="app-results-summary">
       {% set count = planning_applications.items|count %}
-      <h2 class="app-results-summary__title">Showing {{ count }} planning application{{ "" if count == 1 else "s" }} of {{ planning_applications.total }}</h2>
+      <h2 class="app-results-summary__title">Showing {{ count }} of {{ planning_applications.total|commanum }} planning application{{ "" if planning_applications.total == 1 else "s" }}</h2>
       <ul class="govuk-list">
         {% for planning_application in planning_applications.items %}
           <li><a href="{{ url_for('planning_application.plan', reference=planning_application.reference)}}" class="govuk-link">{{planning_application.reference}}</a></li>
