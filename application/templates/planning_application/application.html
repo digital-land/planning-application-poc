@@ -158,7 +158,9 @@
     {% endfor %}
   </tbody>
 </table>
+{% if not logs %}
 <p class="govuk-body dl-secondary-text">No status or events logged. This is a prototype built with limited source data so expect there to be a few gaps.</p>
+{% endif %}
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
