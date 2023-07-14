@@ -3,7 +3,7 @@
 {%- from "components/filter-group/macro.jinja" import dlFilterGroup %}
 
 <form action="/planning-application" class="govuk-form" method="GET">
-  <h3 class="govuk-heading-m">Filters</h3>
+  <h3 class="govuk-heading-m">Filter</h3>
 
   <!-- filter by decision made or not -->
   <div class="govuk-form-group">
@@ -123,7 +123,7 @@
 
   <div class="govuk-button-group">
     {{ govukButton({
-      "text": "Search"
+      "text": "Filter"
     }) }}
     <a href="{{ search_form_url }}" class="govuk-link">Clear</a>
   </div>

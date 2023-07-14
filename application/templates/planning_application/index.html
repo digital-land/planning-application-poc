@@ -1,4 +1,5 @@
 {% extends 'layouts/base.html' %}
+{%- from "govuk_frontend_jinja/components/button/macro.html" import govukButton %}
 
 {% block content %}
 <div class="govuk-grid-row">
@@ -9,6 +10,23 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-one-third">
+
+    <form action="/planning-application" class="govuk-form" method="GET">
+      <h3 class="govuk-heading-m">Search</h3>
+      <div class="govuk-form-group">
+        <label class="govuk-label" for="planning_application_reference">
+          Application reference
+        </label>
+        <input class="govuk-input" id="planning_application_reference" name="planning_application_reference" type="text">
+      </div>
+      <div class="govuk-button-group">
+        {{ govukButton({
+          "text": "Search"
+        }) }}
+        <a href="{{ search_form_url }}" class="govuk-link">Clear</a>
+      </div>
+    </form>
+
     {% include 'partials/search-facets.html' %}
   </div>
   <div class="govuk-grid-column-two-thirds">

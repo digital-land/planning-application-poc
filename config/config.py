@@ -23,6 +23,7 @@ class DevelopmentConfig(Config):
     ENV = "development"
     WTF_CSRF_ENABLED = False
     SQLALCHEMY_RECORD_QUERIES = True
+    DEBUG_TB_INTERCEPT_REDIRECTS = False
 
 
 class TestConfig(Config):
