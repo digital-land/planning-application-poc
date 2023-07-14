@@ -60,5 +60,8 @@ make load::
 make drop::
 	flask data drop
 
+make restore::
+	pg_restore -d planning_application_poc -C data/poc.dump
+
 upgrade::
 	flask db upgrade
