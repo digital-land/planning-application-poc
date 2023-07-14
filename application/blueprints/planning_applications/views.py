@@ -1,3 +1,5 @@
+import re
+
 from flask import (
     Blueprint,
     abort,
@@ -78,6 +80,10 @@ def index():
 
 @planning_app.route("/<path:reference>")
 def plan(reference):
+    if re.search(r"^\s+|\s+$", reference):
+        reference = reference.strip()
+        return redirect(url_for("planning_application.plan", reference=reference))
+
     planning_application = PlanningApplication.query.get(reference)
     if planning_application is None:
         return abort(404)
