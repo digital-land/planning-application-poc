@@ -1,5 +1,6 @@
 import uuid
 
+from sqlalchemy import Text
 from sqlalchemy.dialects.postgresql import JSONB, UUID
 
 from application.extensions import db
@@ -32,7 +33,7 @@ class PlanningApplication(DateModel):
     dataset = db.Column(db.String)
     geojson = db.Column(JSONB)
     geometry = db.Column(db.String)
-    json = db.Column(JSONB)
+    json = db.Column(JSONB(astext_type=Text()), index=True)
     name = db.Column(db.String)
     organisation_entity = db.Column(db.BigInteger, db.ForeignKey("organisation.entity"))
     organisation = db.relationship("Organisation")

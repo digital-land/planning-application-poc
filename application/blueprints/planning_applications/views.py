@@ -7,6 +7,9 @@ planning_app = Blueprint(
 )
 
 
+status_map = {"live": "Live", "decision-made": "Decided"}
+
+
 @planning_app.route("/")
 def index():
     page_size = current_app.config.get("PAGE_SIZE", 50)
@@ -20,6 +23,14 @@ def index():
                 Organisation.organisation == request.args.get("planning_authority")
             )
         )
+
+    if request.args.get("decision") and request.args.get("decision") != "all":
+        decision_status = request.args.get("decision")
+        status = status_map.get(decision_status, None)
+        if status is not None:
+            query = query.filter(
+                PlanningApplication.json["planning-application-status"].astext == status
+            )
 
     planning_applications = query.paginate(
         page=page, per_page=page_size, error_out=False
