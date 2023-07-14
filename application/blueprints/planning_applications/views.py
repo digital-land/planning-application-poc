@@ -1,4 +1,12 @@
-from flask import Blueprint, abort, current_app, render_template, request, url_for
+from flask import (
+    Blueprint,
+    abort,
+    current_app,
+    redirect,
+    render_template,
+    request,
+    url_for,
+)
 
 from application.models import Organisation, PlanningApplication
 
@@ -12,6 +20,11 @@ status_map = {"live": "Live", "decision-made": "Decided"}
 
 @planning_app.route("/")
 def index():
+    reference = request.args.get("planning_application_reference")
+
+    if reference:
+        return redirect(url_for("planning_application.plan", reference=reference))
+
     page_size = current_app.config.get("PAGE_SIZE", 50)
     page = request.args.get("page", 1, type=int)
 
