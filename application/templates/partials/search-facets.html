@@ -20,20 +20,20 @@
       </legend>
       <div class="govuk-radios">
         <div class="govuk-radios__item">
-          {% set checked = request.args.get("decision", "all") %}
-          <input class="govuk-radios__input" id="decision" name="decision" type="radio" value="all" {% if checked =='all'  %}checked=checked{% endif %}>
+          {% set status_checked = request.args.get("decision", "all") %}
+          <input class="govuk-radios__input" id="decision" name="decision" type="radio" value="all" {% if status_checked =='all'  %}checked=checked{% endif %}>
           <label class="govuk-label govuk-radios__label" for="decision">
             All
           </label>
         </div>
         <div class="govuk-radios__item">
-          <input class="govuk-radios__input" id="decision-2" name="decision" type="radio" value="live" {% if checked== 'live' %}checked=checked{% endif %}>
+          <input class="govuk-radios__input" id="decision-2" name="decision" type="radio" value="live" {% if status_checked == 'live' %}checked=checked{% endif %}>
           <label class="govuk-label govuk-radios__label" for="decision-2">
             Live
           </label>
         </div>
         <div class="govuk-radios__item">
-          <input class="govuk-radios__input" id="decision-3" name="decision" type="radio" value="decision-made" {% if checked == 'decision-made' %}checked=checked{% endif %}>
+          <input class="govuk-radios__input" id="decision-3" name="decision" type="radio" value="decision-made" {% if status_checked == 'decision-made' %}checked=checked{% endif %}>
           <label class="govuk-label govuk-radios__label" for="decision-3">
             Decision made
           </label>
@@ -51,21 +51,22 @@
       "is_open": True,
       "selected": 0
     }) %}
+    {% set pa_checked = request.args.getlist("planning_authority") %}
     <div class="govuk-checkboxes">
       <div class="govuk-checkboxes__item">
-        <input class="govuk-checkboxes__input" id="planning_authority-camden" name="planning_authority" type="checkbox" value="local-authority-eng:ADU">
+        <input class="govuk-checkboxes__input" id="planning_authority-camden" name="planning_authority" type="checkbox" value="local-authority-eng:ADU" {% if "local-authority-eng:ADU" in pa_checked %}checked=checked{% endif %}>
         <label class="govuk-label govuk-checkboxes__label" for="planning_authority-camden">
           Adur and Worthing
         </label>
       </div>
       <div class="govuk-checkboxes__item">
-        <input class="govuk-checkboxes__input" id="planning_authority-camden" name="planning_authority" type="checkbox" value="local-authority-eng:CMD">
+        <input class="govuk-checkboxes__input" id="planning_authority-camden" name="planning_authority" type="checkbox" value="local-authority-eng:CMD" {% if "local-authority-eng:CMD" in pa_checked %}checked=checked{% endif %}>
         <label class="govuk-label govuk-checkboxes__label" for="planning_authority-camden">
           Camden
         </label>
       </div>
       <div class="govuk-checkboxes__item">
-        <input class="govuk-checkboxes__input" id="planning_authority-camden" name="planning_authority" type="checkbox" value="local-authority-eng:NGM">
+        <input class="govuk-checkboxes__input" id="planning_authority-camden" name="planning_authority" type="checkbox" value="local-authority-eng:NGM" {% if "local-authority-eng:NGM" in pa_checked %}checked=checked{% endif %}>
         <label class="govuk-label govuk-checkboxes__label" for="planning_authority-camden">
           Nottingham
         </label>

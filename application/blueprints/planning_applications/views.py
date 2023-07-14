@@ -33,11 +33,17 @@ def index():
     query = PlanningApplication.query
 
     if request.args.get("planning_authority"):
-        query = query.filter(
-            PlanningApplication.organisation.has(
-                Organisation.organisation == request.args.get("planning_authority")
+        ids = (
+            Organisation.query.filter(
+                Organisation.organisation.in_(
+                    request.args.getlist("planning_authority")
+                )
             )
+            .with_entities(Organisation.entity)
+            .all()
         )
+        ids = [id[0] for id in ids]
+        query = query.filter(PlanningApplication.organisation_entity.in_(ids))
 
     if request.args.get("decision") and request.args.get("decision") != "all":
         decision_status = request.args.get("decision")
