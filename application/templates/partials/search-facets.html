@@ -20,19 +20,20 @@
       </legend>
       <div class="govuk-radios">
         <div class="govuk-radios__item">
-          <input class="govuk-radios__input" id="decision" name="decision" type="radio" value="all" checked=checked>
+          {% set checked = request.args.get("decision", "all") %}
+          <input class="govuk-radios__input" id="decision" name="decision" type="radio" value="all" {% if checked =='all'  %}checked=checked{% endif %}>
           <label class="govuk-label govuk-radios__label" for="decision">
             All
           </label>
         </div>
         <div class="govuk-radios__item">
-          <input class="govuk-radios__input" id="decision-2" name="decision" type="radio" value="live">
+          <input class="govuk-radios__input" id="decision-2" name="decision" type="radio" value="live" {% if checked== 'live' %}checked=checked{% endif %}>
           <label class="govuk-label govuk-radios__label" for="decision-2">
             Live
           </label>
         </div>
         <div class="govuk-radios__item">
-          <input class="govuk-radios__input" id="decision-3" name="decision" type="radio" value="decision-made">
+          <input class="govuk-radios__input" id="decision-3" name="decision" type="radio" value="decision-made" {% if checked == 'decision-made' %}checked=checked{% endif %}>
           <label class="govuk-label govuk-radios__label" for="decision-3">
             Decision made
           </label>
