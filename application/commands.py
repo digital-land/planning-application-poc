@@ -92,6 +92,8 @@ def _get_insert_copy(row):
 def make_geojson():
     from application.extensions import db
 
+    batch_size = 5000
+    batch = []
     for planning_application in PlanningApplication.query.filter(
         and_(
             PlanningApplication.geometry.is_not(None),
@@ -101,5 +103,16 @@ def make_geojson():
         wkt = shapely.from_wkt(planning_application.geometry)
         geojson = shapely.geometry.mapping(wkt)
         planning_application.geojson = geojson
-        db.session.add(planning_application)
+        batch.append(planning_application)
+        if len(batch) == batch_size:
+            db.session.bulk_save_objects(batch)
+            db.session.commit()
+            print(f"saved {len(batch)} records")
+            batch = []
+
+    if len(batch) > 0:
+        db.session.bulk_save_objects(batch)
         db.session.commit()
+        print(f"saved last {len(batch)} records")
+
+    print("done")
