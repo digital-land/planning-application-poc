@@ -6,7 +6,7 @@ from pathlib import Path
 import requests
 import shapely
 from flask.cli import AppGroup
-from sqlalchemy import and_
+from sqlalchemy import and_, text
 
 from application.models import Organisation, PlanningApplication, PlanningApplicationLog
 
@@ -92,6 +92,11 @@ def _get_insert_copy(row):
 def make_geojson():
     from application.extensions import db
 
+    db.session.execute(
+        text("UPDATE planning_application SET geojson = NULL WHERE geojson = 'null';")
+    )
+
+    print("setting geojson if needed")
     batch_size = 5000
     batch = []
     for planning_application in PlanningApplication.query.filter(
