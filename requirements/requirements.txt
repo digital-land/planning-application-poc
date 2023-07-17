@@ -59,11 +59,15 @@ markupsafe==2.1.3
     #   mako
     #   werkzeug
     #   wtforms
+numpy==1.25.1
+    # via shapely
 psycopg2-binary==2.9.6
     # via -r requirements/requirements.in
 python-dotenv==1.0.0
     # via -r requirements/requirements.in
 requests==2.31.0
+    # via -r requirements/requirements.in
+shapely==2.0.1
     # via -r requirements/requirements.in
 sqlalchemy==2.0.17
     # via

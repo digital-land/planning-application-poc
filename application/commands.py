@@ -4,7 +4,9 @@ from datetime import datetime
 from pathlib import Path
 
 import requests
+import shapely
 from flask.cli import AppGroup
+from sqlalchemy import and_
 
 from application.models import Organisation, PlanningApplication, PlanningApplicationLog
 
@@ -84,3 +86,20 @@ def _get_insert_copy(row):
         if (key == "entity" or key == "organisation_entity") and val is not None:
             copy[key] = int(val)
     return copy
+
+
+@data_cli.command("geojson")
+def make_geojson():
+    from application.extensions import db
+
+    for planning_application in PlanningApplication.query.filter(
+        and_(
+            PlanningApplication.geometry.is_not(None),
+            PlanningApplication.geojson.is_(None),
+        )
+    ).all():
+        wkt = shapely.from_wkt(planning_application.geometry)
+        geojson = shapely.geometry.mapping(wkt)
+        planning_application.geojson = geojson
+        db.session.add(planning_application)
+        db.session.commit()
