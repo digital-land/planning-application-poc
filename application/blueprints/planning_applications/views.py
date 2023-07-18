@@ -100,3 +100,17 @@ def plan(reference):
         properties=planning_application.json,
         logs=planning_application.logs,
     )
+
+
+@planning_app.route("/<path:reference>.geojson")
+def plan_geojson(reference):
+    planning_application = PlanningApplication.query.get(reference)
+    if planning_application is None:
+        return abort(404)
+
+    record = {
+        "type": "Feature",
+        "geometry": planning_application.geojson,
+        "properties": planning_application.json,
+    }
+    return record
