@@ -1,3 +1,4 @@
+import datetime
 import re
 
 from flask import (
@@ -9,8 +10,9 @@ from flask import (
     request,
     url_for,
 )
+from sqlalchemy import and_
 
-from application.models import Organisation, PlanningApplication
+from application.models import Organisation, PlanningApplication, PlanningApplicationLog
 
 planning_app = Blueprint(
     "planning_application", __name__, url_prefix="/planning-application"
@@ -52,6 +54,25 @@ def index():
             query = query.filter(
                 PlanningApplication.json["planning-application-status"].astext == status
             )
+
+    if (
+        request.args.get("entry_date_day")
+        and request.args.get("entry_date_month")
+        and request.args.get("entry_date_year")
+    ):
+        day = request.args.get("entry_date_day")
+        month = request.args.get("entry_date_month")
+        year = request.args.get("entry_date_year")
+        date_str = f"{year}{month}{day}"
+        date = datetime.datetime.strptime(date_str, "%Y%m%d")
+        query = query.filter(
+            and_(
+                PlanningApplication.logs.any(PlanningApplicationLog.event_date >= date),
+                PlanningApplication.logs.any(
+                    PlanningApplicationLog.name == "submitted"
+                ),
+            )
+        )
 
     planning_applications = query.paginate(
         page=page, per_page=page_size, error_out=False
