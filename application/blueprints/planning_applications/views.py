@@ -102,6 +102,7 @@ def index():
         planning_applications=planning_applications,
         prev_url=prev_url,
         next_url=next_url,
+        page_size=page_size,
     )
 
 

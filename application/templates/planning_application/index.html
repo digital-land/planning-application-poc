@@ -1,5 +1,6 @@
 {% extends 'layouts/base.html' %}
 {%- from "govuk_frontend_jinja/components/button/macro.html" import govukButton %}
+{%- from "components/pagination/macro.jinja" import appPagination %}
 
 {% block content %}
 <div class="govuk-grid-row">
@@ -33,17 +34,53 @@
     <div class="app-results-summary">
       {% set count = planning_applications.items|count %}
       <h2 class="app-results-summary__title">Showing {{ count }} of {{ planning_applications.total|commanum }} planning application{{ "" if planning_applications.total == 1 else "s" }}</h2>
+      <hr class="govuk-section-break--m">
       <ul class="govuk-list">
         {% for planning_application in planning_applications.items %}
-          <li><a href="{{ url_for('planning_application.plan', reference=planning_application.reference)}}" class="govuk-link">{{planning_application.reference}}</a></li>
+          <li class="govuk-!-margin-bottom-3">
+            <a href="{{ url_for('planning_application.plan', reference=planning_application.reference)}}" class="govuk-link">{{planning_application.reference}}</a>
+            <span class="govuk-!-font-size-16">- {{ planning_application.json['address-text'] }}</span>
+            <div class="govuk-grid-row">
+              <div class="govuk-grid-column-full"><span class="govuk-hint govuk-!-font-size-16">{{ planning_application.json.description|truncate(90) }}</span></div>
+            </div>
+          </li>
         {% endfor %}
       </ul>
-      {% if prev_url %}
-        <a href="{{ prev_url }}">Previous</a>
+
+      {% if prev_url and next_url %}
+      <div class="app-pagination__wrapper govuk-!-margin-bottom-7">
+      {{ appPagination({
+        "next": {
+          "href": next_url,
+          "text": "Show next "+ page_size|string + " planning applications"
+        },
+        "prev":{
+          "href":prev_url,
+          "text": "Show previous "+ page_size|string + " planning applications"
+        }
+      }) }}
+      </div>
+      {% elif next_url %}
+      <div class="app-pagination__wrapper govuk-!-margin-bottom-7">
+        {{ appPagination({
+          "next": {
+            "href": next_url,
+            "text": "Show next "+ page_size|string + " planning applications"
+          }
+        }) }}
+      </div>
+      {% elif prev_url %}
+      <div class="app-pagination__wrapper govuk-!-margin-bottom-7">
+        {{ appPagination({
+          "prev": {
+            "href": prev_url,
+            "text": "Show previous "+ page_size|string + " planning applications"
+          }
+        }) }}
+      </div>
       {% endif %}
-      {% if next_url %}
-        <a href="{{ next_url }}">Next</a>
-      {% endif %}
+      <!-- /.app-pagination__wrapper -->
+
       {% if count == 0 %}
         <p class="govuk-body dl-secondary-text">No planning applications found for this search. This is a proof of concept and only has a limited set of data.</p>
       {% endif %}
